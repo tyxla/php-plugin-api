@@ -9,8 +9,8 @@
  */
 class Plugin_API {
 
-    /**
-     * Contains all filters and their hooked functions and methods.
+	/**
+	 * Contains all filters and their hooked functions and methods.
 	 *
 	 * @static
 	 *
@@ -18,8 +18,8 @@ class Plugin_API {
 	 */
 	static $filters = array();
 	
-    /**
-     * Contains all actions and their hooked functions and methods.
+	/**
+	 * Contains all actions and their hooked functions and methods.
 	 *
 	 * @static
 	 *
@@ -27,8 +27,8 @@ class Plugin_API {
 	 */
 	static $actions = array();
 
-    /**
-     * Tracks the actions and filters that need to be merged for later.
+	/**
+	 * Tracks the actions and filters that need to be merged for later.
 	 *
 	 * @static
 	 *
@@ -36,8 +36,8 @@ class Plugin_API {
 	 */
 	static $merged_filters = array();
 
-    /**
-     * Stores the list of current filters with the current one last.
+	/**
+	 * Stores the list of current filters with the current one last.
 	 *
 	 * @static
 	 *
