@@ -110,15 +110,18 @@ class Plugin_API {
 			}
 		}
 
-		if ( false === $function_to_check || false == $has )
+		if ( false === $function_to_check || false == $has ) {
 			return $has;
+		}
 
-		if ( !$idx = self::filter_build_unique_id($tag, $function_to_check, false) )
+		if ( !$idx = self::filter_build_unique_id($tag, $function_to_check, false) ) {
 			return false;
+		}
 
 		foreach ( (array) array_keys(self::$filters[$tag]) as $priority ) {
-			if ( isset(self::$filters[$tag][$priority][$idx]) )
+			if ( isset(self::$filters[$tag][$priority][$idx]) ) {
 				return $priority;
+			}
 		}
 
 		return false;
@@ -146,13 +149,15 @@ class Plugin_API {
 		}
 
 		if ( !isset(self::$filters[$tag]) ) {
-			if ( isset(self::$filters['all']) )
+			if ( isset(self::$filters['all']) ) {
 				array_pop(self::$current_filter);
+			}
 			return $value;
 		}
 
-		if ( !isset(self::$filters['all']) )
+		if ( !isset(self::$filters['all']) ) {
 			self::$current_filter[] = $tag;
+		}
 
 		// Sort.
 		if ( !isset( self::$merged_filters[ $tag ] ) ) {
@@ -162,15 +167,17 @@ class Plugin_API {
 
 		reset( self::$filters[ $tag ] );
 
-		if ( empty($args) )
+		if ( empty($args) ) {
 			$args = func_get_args();
+		}
 
 		do {
-			foreach( (array) current(self::$filters[$tag]) as $the_ )
+			foreach( (array) current(self::$filters[$tag]) as $the_ ) {
 				if ( !is_null($the_['function']) ){
 					$args[1] = $value;
 					$value = call_user_func_array($the_['function'], array_slice($args, 1, (int) $the_['accepted_args']));
 				}
+			}
 
 		} while ( next(self::$filters[$tag]) !== false );
 
@@ -198,13 +205,15 @@ class Plugin_API {
 		}
 
 		if ( !isset(self::$filters[$tag]) ) {
-			if ( isset(self::$filters['all']) )
+			if ( isset(self::$filters['all']) ) {
 				array_pop(self::$current_filter);
+			}
 			return $args[0];
 		}
 
-		if ( !isset(self::$filters['all']) )
+		if ( !isset(self::$filters['all']) ) {
 			self::$current_filter[] = $tag;
+		}
 
 		// Sort
 		if ( !isset( self::$merged_filters[ $tag ] ) ) {
@@ -215,9 +224,11 @@ class Plugin_API {
 		reset( self::$filters[ $tag ] );
 
 		do {
-			foreach( (array) current(self::$filters[$tag]) as $the_ )
-				if ( !is_null($the_['function']) )
+			foreach( (array) current(self::$filters[$tag]) as $the_ ) {
+				if ( !is_null($the_['function']) ) {
 					$args[0] = call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+				}
+			}
 
 		} while ( next(self::$filters[$tag]) !== false );
 
@@ -359,10 +370,11 @@ class Plugin_API {
 	 * @return null Will return null if $tag does not exist in the Plugin_API::$filters array.
 	 */
 	static function do_action($tag, $arg = '') {
-		if ( ! isset(self::$actions[$tag]) )
+		if ( ! isset(self::$actions[$tag]) ) {
 			self::$actions[$tag] = 1;
-		else
+		} else {
 			++self::$actions[$tag];
+		}
 
 		// Do 'all' actions first
 		if ( isset(self::$filters['all']) ) {
@@ -372,21 +384,26 @@ class Plugin_API {
 		}
 
 		if ( !isset(self::$filters[$tag]) ) {
-			if ( isset(self::$filters['all']) )
+			if ( isset(self::$filters['all']) ) {
 				array_pop(self::$current_filter);
+			}
 			return;
 		}
 
-		if ( !isset(self::$filters['all']) )
+		if ( !isset(self::$filters['all']) ) {
 			self::$current_filter[] = $tag;
+		}
 
 		$args = array();
-		if ( is_array($arg) && 1 == count($arg) && isset($arg[0]) && is_object($arg[0]) ) // array(&$this)
+		if ( is_array($arg) && 1 == count($arg) && isset($arg[0]) && is_object($arg[0]) ) { // array(&$this)
 			$args[] =& $arg[0];
-		else
+		} else {
 			$args[] = $arg;
-		for ( $a = 2; $a < func_num_args(); $a++ )
+		}
+
+		for ( $a = 2; $a < func_num_args(); $a++ ) {
 			$args[] = func_get_arg($a);
+		}
 
 		// Sort
 		if ( !isset( self::$merged_filters[ $tag ] ) ) {
@@ -397,9 +414,11 @@ class Plugin_API {
 		reset( self::$filters[ $tag ] );
 
 		do {
-			foreach ( (array) current(self::$filters[$tag]) as $the_ )
-				if ( !is_null($the_['function']) )
+			foreach ( (array) current(self::$filters[$tag]) as $the_ ) {
+				if ( !is_null($the_['function']) ) {
 					call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+				}
+			}
 
 		} while ( next(self::$filters[$tag]) !== false );
 
@@ -416,8 +435,9 @@ class Plugin_API {
 	 * @return int The number of times action hook $tag is fired.
 	 */
 	static function did_action($tag) {
-		if ( ! isset( self::$actions[ $tag ] ) )
+		if ( ! isset( self::$actions[ $tag ] ) ) {
 			return 0;
+		}
 
 		return self::$actions[$tag];
 	}
@@ -433,10 +453,11 @@ class Plugin_API {
 	 * @return null Will return null if $tag does not exist in self::$filters array
 	 */
 	static function do_action_ref_array($tag, $args) {
-		if ( ! isset(self::$actions[$tag]) )
+		if ( ! isset(self::$actions[$tag]) ) {
 			self::$actions[$tag] = 1;
-		else
+		} else {
 			++self::$actions[$tag];
+		}
 
 		// Do 'all' actions first
 		if ( isset(self::$filters['all']) ) {
@@ -446,13 +467,15 @@ class Plugin_API {
 		}
 
 		if ( !isset(self::$filters[$tag]) ) {
-			if ( isset(self::$filters['all']) )
+			if ( isset(self::$filters['all']) ) {
 				array_pop(self::$current_filter);
+			}
 			return;
 		}
 
-		if ( !isset(self::$filters['all']) )
+		if ( !isset(self::$filters['all']) ) {
 			self::$current_filter[] = $tag;
+		}
 
 		// Sort
 		if ( !isset( self::$merged_filters[ $tag ] ) ) {
@@ -463,9 +486,11 @@ class Plugin_API {
 		reset( self::$filters[ $tag ] );
 
 		do {
-			foreach( (array) current(self::$filters[$tag]) as $the_ )
-				if ( !is_null($the_['function']) )
+			foreach( (array) current(self::$filters[$tag]) as $the_ ) {
+				if ( !is_null($the_['function']) ) {
 					call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+				}
+			}
 
 		} while ( next(self::$filters[$tag]) !== false );
 
@@ -531,9 +556,11 @@ class Plugin_API {
 	private static function call_all_hook($args) {
 		reset( self::$filters['all'] );
 		do {
-			foreach( (array) current(self::$filters['all']) as $the_ )
-				if ( !is_null($the_['function']) )
+			foreach( (array) current(self::$filters['all']) as $the_ ) {
+				if ( !is_null($the_['function']) ) {
 					call_user_func_array($the_['function'], $args);
+				}
+			}
 
 		} while ( next(self::$filters['all']) !== false );
 	}
@@ -556,8 +583,9 @@ class Plugin_API {
 	private static function filter_build_unique_id( $tag, $function, $priority ) {
 		static $filter_id_count = 0;
 
-		if ( is_string($function) )
+		if ( is_string($function) ) {
 			return $function;
+		}
 
 		if ( is_object($function) ) {
 			// Closures are currently implemented as objects
@@ -573,8 +601,9 @@ class Plugin_API {
 			} else {
 				$obj_idx = get_class($function[0]) . $function[1];
 				if ( !isset($function[0]->filter_id) ) {
-					if ( false === $priority )
+					if ( false === $priority ) {
 						return false;
+					}
 					$obj_idx .= isset(self::$filters[$tag][$priority]) ? count((array)self::$filters[$tag][$priority]) : $filter_id_count;
 					$function[0]->filter_id = $filter_id_count;
 					++$filter_id_count;
