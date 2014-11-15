@@ -175,7 +175,8 @@ class Plugin_API {
 			foreach( (array) current(self::$filters[$tag]) as $the_ ) {
 				if ( !is_null($the_['function']) ){
 					$args[1] = $value;
-					$value = call_user_func_array($the_['function'], array_slice($args, 1, (int) $the_['accepted_args']));
+					$params = array_slice($args, 1, (int) $the_['accepted_args']);
+					$value = call_user_func_array($the_['function'], $params);
 				}
 			}
 
@@ -226,7 +227,8 @@ class Plugin_API {
 		do {
 			foreach( (array) current(self::$filters[$tag]) as $the_ ) {
 				if ( !is_null($the_['function']) ) {
-					$args[0] = call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+					$params = array_slice($args, 0, (int) $the_['accepted_args']);
+					$args[0] = call_user_func_array($the_['function'], $params);
 				}
 			}
 
@@ -416,7 +418,8 @@ class Plugin_API {
 		do {
 			foreach ( (array) current(self::$filters[$tag]) as $the_ ) {
 				if ( !is_null($the_['function']) ) {
-					call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+					$params = array_slice($args, 0, (int) $the_['accepted_args']);
+					call_user_func_array($the_['function'], $params);
 				}
 			}
 
@@ -488,7 +491,8 @@ class Plugin_API {
 		do {
 			foreach( (array) current(self::$filters[$tag]) as $the_ ) {
 				if ( !is_null($the_['function']) ) {
-					call_user_func_array($the_['function'], array_slice($args, 0, (int) $the_['accepted_args']));
+					$params = array_slice($args, 0, (int) $the_['accepted_args']);
+					call_user_func_array($the_['function'], $params);
 				}
 			}
 
