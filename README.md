@@ -19,7 +19,7 @@ Since this library replicates the WordPress Plugin API, additional information a
 Usage & Examples
 -----
 
-#### 1. Using filters
+#### 1. Using filters - basic example
 
 	// Define a variable.
 	$title = 'Hello';
@@ -37,3 +37,16 @@ Usage & Examples
 
     // The $title variable will now contain "Hello, World".
     echo $title;
+
+-----
+
+#### 2. Using actions - basic example
+
+	// Add a function to the "custom_action" action.
+    Plugin_API::add_filter('custom_action', function() {
+    	echo 'Hello, World';
+    });
+
+    // Execute the "custom_action" action.
+    // This will display "Hello, World.".
+    Plugin_API::do_action('custom_action');
