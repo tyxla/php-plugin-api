@@ -257,9 +257,11 @@ class Plugin_API {
 
 		if ( true === $r ) {
 			unset( self::$filters[ $tag ][ $priority ][ $function_to_remove ] );
+
 			if ( empty( self::$filters[ $tag ][ $priority ] ) ) {
 				unset( self::$filters[ $tag ][ $priority ] );
 			}
+
 			if ( empty( self::$filters[ $tag ] ) ) {
 				self::$filters[ $tag ] = array();
 			}
@@ -608,6 +610,7 @@ class Plugin_API {
 					if ( false === $priority ) {
 						return false;
 					}
+					
 					$obj_idx .= isset(self::$filters[$tag][$priority]) ? count((array)self::$filters[$tag][$priority]) : $filter_id_count;
 					$function[0]->filter_id = $filter_id_count;
 					++$filter_id_count;
