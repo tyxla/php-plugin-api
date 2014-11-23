@@ -7,7 +7,7 @@
  *
  * Based on the amazing plugin API that is built into WordPress.
  *
- * @author tyxla
+ * @author tyxla - https://github.com/tyxla
  * @version 1.0
  */
 class Plugin_API {
