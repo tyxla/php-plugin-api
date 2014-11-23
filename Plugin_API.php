@@ -6,6 +6,9 @@
  * The functions or methods will be run when the action or filter is called.
  *
  * Based on the amazing plugin API that is built into WordPress.
+ *
+ * @author tyxla
+ * @version 1.0
  */
 class Plugin_API {
 
