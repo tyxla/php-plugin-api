@@ -25,6 +25,8 @@ Usage & Examples
 	// Add a filter function to the "custom_filter" filter.
 	// This will take the current variable as a parameter and
 	// will append ", World" to it, returning the changed value.
+    // Note that we've used anonymous function for the second parameter, 
+    // but you can use any callable value here. This gives you more control.
     Plugin_API::add_filter('custom_filter', function( $var ) {
     	return $var . ', World';
     });
@@ -41,6 +43,8 @@ Usage & Examples
 #### 2. Using actions - basic example
 
 	// Add a function to the "custom_action" action.
+    // Note that we've used anonymous function for the second parameter, 
+    // but you can use any callable value here. This gives you more control.
     Plugin_API::add_filter('custom_action', function() {
     	echo 'Hello, World';
     });
