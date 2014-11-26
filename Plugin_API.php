@@ -9,6 +9,8 @@
  *
  * @author tyxla - https://github.com/tyxla
  * @version 1.0
+ * @license GPL2
+ * @see http://codex.wordpress.org/Plugin_API
  */
 class Plugin_API {
 
