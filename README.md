@@ -1,8 +1,6 @@
 PHP Plugin API
 ==============
 
------
-
 About
 -----
 
