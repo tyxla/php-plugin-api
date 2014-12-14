@@ -115,7 +115,7 @@ class Plugin_API {
 			}
 		}
 
-		if ( false === $function_to_check || false == $has ) {
+		if ( $function_to_check === false || $has == false ) {
 			return $has;
 		}
 
@@ -260,7 +260,7 @@ class Plugin_API {
 
 		$r = isset( self::$filters[ $tag ][ $priority ][ $function_to_remove ] );
 
-		if ( true === $r ) {
+		if ( $r === true ) {
 			unset( self::$filters[ $tag ][ $priority ][ $function_to_remove ] );
 
 			if ( empty( self::$filters[ $tag ][ $priority ] ) ) {
@@ -291,7 +291,7 @@ class Plugin_API {
 	 */
 	static function remove_all_filters( $tag, $priority = false ) {
 		if ( isset( self::$filters[ $tag ]) ) {
-			if ( false !== $priority && isset( self::$filters[ $tag ][ $priority ] ) ) {
+			if ( isset( self::$filters[ $tag ][ $priority ] ) && $priority !== false ) {
 				self::$filters[ $tag ][ $priority ] = array();
 			} else {
 				self::$filters[ $tag ] = array();
@@ -326,7 +326,7 @@ class Plugin_API {
 	 * @return bool Whether the filter is currently in the stack.
 	 */
 	static function doing_filter( $filter = null ) {
-		if ( null === $filter ) {
+		if ( $filter === null ) {
 			return ! empty( self::$current_filter );
 		}
 
@@ -612,7 +612,7 @@ class Plugin_API {
 			} else {
 				$obj_idx = get_class($function[0]) . $function[1];
 				if ( !isset($function[0]->filter_id) ) {
-					if ( false === $priority ) {
+					if ( $priority === false ) {
 						return false;
 					}
 					
